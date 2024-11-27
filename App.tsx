@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Text,
   ImageBackground,
@@ -14,8 +15,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -46,7 +51,6 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       Alert.alert('Register Failed', 'Please enter your phone number and password.');
     }
   }
-  
 
   async function LoginBtnPress(event: GestureResponderEvent): Promise<void> {
     if (phoneNumber.trim() && password.trim()) {
@@ -61,7 +65,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
         } else if (phoneNumber === '666' && password === 'data') {
           navigation.replace('Data');
         } else if (users[phoneNumber] === password) {
-          navigation.replace('Home', { phoneNumber });
+          navigation.replace('Main', { phoneNumber });
         } else {
           Alert.alert('Login Failed', 'Invalid phone number or password.');
         }
@@ -113,25 +117,76 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
   );
 };
 
-const HomeScreen = ({ route, navigation }: { route: any; navigation: any }) => {
-  const { phoneNumber } = route.params; 
+const MainScreen = ({ route }: { route: any }) => {
+  const { phoneNumber } = route.params;
 
   return (
-    <View style={styles.homeContainer}>
-      <Text style={styles.homeText}>Welcome '{phoneNumber}' user to the Home Page!</Text>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        children={() => <HomeScreen phoneNumber={phoneNumber} />}
+      />
+      <Tab.Screen
+        name="About"
+        children={() => <AboutScreen phoneNumber={phoneNumber} />}
+      />
+      <Tab.Screen
+        name="Profile"
+        children={() => <ProfileScreen phoneNumber={phoneNumber} />}
+      />
+      <Tab.Screen
+        name="Settings"
+        children={({ navigation }) => <SettingScreen phoneNumber={phoneNumber} navigation={navigation} />}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const HomeScreen = ({ phoneNumber }: { phoneNumber: string }) => (
+  <View style={styles.screenContainer}>
+    <Text style={styles.screenTitle}>'{phoneNumber}' Welcome user to the ABC Master Card App's Home Page!</Text>
+  </View>
+);
+
+const AboutScreen = ({ phoneNumber }: { phoneNumber: string }) => (
+  <View style={styles.screenContainer}>
+    
+  </View>
+);
+
+const ProfileScreen = ({ phoneNumber }: { phoneNumber: string }) => (
+  <View style={styles.screenContainer}>
+
+  </View>
+);
+
+const SettingScreen = ({ phoneNumber, navigation }: { phoneNumber: string; navigation: any }) => {
+  const handleLogout = async () => {
+    try {
+      navigation.replace('Login');
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Logout Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  return (
+    <View style={styles.screenContainer}>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const DataScreen = ({ route, navigation }: { route: any; navigation: any }) => {
-  const [data, setData] = useState<any[]>([]); 
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const datas = await response.json();
-        setData(datas);
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        setData(response.data);
       } catch (error) {
         console.error(error);
         Alert.alert('Error', 'Failed to fetch data.');
@@ -141,9 +196,8 @@ const DataScreen = ({ route, navigation }: { route: any; navigation: any }) => {
     fetchData();
   }, []);
 
-
   return (
-    <View style={styles.homeContainer}>
+    <View style={styles.screenContainer}>
       <Text style={styles.sectionTitle}>Data:</Text>
       <FlatList
         data={data}
@@ -197,22 +251,11 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={({ navigation }) => ({
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.replace('Login');
-                }}
-                style={{ marginRight: 10 }}
-              >
-                <Text style={{ color: 'blue', fontSize: 16 }}>Logout</Text>
-              </TouchableOpacity>
-            ),
-            headerLeft: () => null,
-            gestureEnabled: false,
-          })}
+          name="Main"
+          component={MainScreen}
+          options={{
+            headerShown: false,
+          }}
         />
         <Stack.Screen
           name="Admin"
@@ -255,6 +298,7 @@ export default function App() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -284,11 +328,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 20,
   },
-  homeContainer: {
+  screenContainer: {
     flex: 1,
     padding: 20,
   },
-  homeText: {
+  screenTitle: {
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -314,12 +358,13 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 10,
   },
   adminContainer: {
     flex: 1,
-    padding: 20,
+    marginLeft: 20,
+    marginTop: 10,
   },
   adminTitle: {
     fontSize: 24,
@@ -329,5 +374,18 @@ const styles = StyleSheet.create({
   userText: {
     fontSize: 14,
     marginBottom: 10,
+  },
+  logoutButton: {
+    marginTop: 670,
+    marginBottom: -13,
+    padding: 15,
+    backgroundColor: 'red',
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  logoutButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
