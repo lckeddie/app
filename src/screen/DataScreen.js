@@ -8,7 +8,7 @@ const DataScreen = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        const response = await axios.get('https://jsonplaceholder.typicode.com/photos');
         setData(response.data);
       } catch (error) {
         console.error(error);
@@ -27,8 +27,10 @@ const DataScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.dataItem}>
+            <Text style={styles.dataTitle}>{item.id}</Text>
             <Text style={styles.dataTitle}>{item.title}</Text>
-            <Text style={styles.dataBody}>{item.body}</Text>
+            <Text style={styles.dataBody}>{item.url}</Text>
+            <Text style={styles.dataBody}>{item.thumbnailUrl}</Text>
           </View>
         )}
       />

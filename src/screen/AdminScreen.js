@@ -10,8 +10,8 @@ const AdminScreen = () => {
 
   const handleDelete = async (phoneNumber) => {
     try {
-      await AsyncStorage.removeItem(phoneNumber); // Remove from AsyncStorage
-      dispatch(deleteUser(phoneNumber)); // Remove from Redux
+      await AsyncStorage.removeItem(phoneNumber); 
+      dispatch(deleteUser(phoneNumber));
     } catch (error) {
       console.error('Failed to remove user from AsyncStorage', error);
     }
@@ -19,7 +19,7 @@ const AdminScreen = () => {
 
   return (
     <View style={styles.adminContainer}>
-      <Text style={styles.adminTitle}>Already Registered Users</Text>
+      <Text style={styles.adminTitle}>Already Got '{userList.length}' Registered Users</Text>
       <FlatList
         data={userList}
         keyExtractor={(item) => item.phoneNumber}

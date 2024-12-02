@@ -42,7 +42,6 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-// Load persisted data into initial state
 (async () => {
   initialState.userList = await loadFromStorage();
 })();
