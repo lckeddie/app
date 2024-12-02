@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteUser } from '../redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AdminScreen = () => {
-  const [users, setUsers] = useState({});
+  const userList = useSelector((state) => state.user.userList);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const existingUsers = await AsyncStorage.getItem('users');
-        setUsers(existingUsers ? JSON.parse(existingUsers) : {});
-      } catch (error) {
-        console.error(error);
-      }
+  const handleDelete = async (phoneNumber) => {
+    try {
+      await AsyncStorage.removeItem(phoneNumber); // Remove from AsyncStorage
+      dispatch(deleteUser(phoneNumber)); // Remove from Redux
+    } catch (error) {
+      console.error('Failed to remove user from AsyncStorage', error);
     }
-
-    fetchUsers();
-  }, []);
+  };
 
   return (
     <View style={styles.adminContainer}>
       <Text style={styles.adminTitle}>Already Registered Users</Text>
       <FlatList
-        data={Object.entries(users)}
-        keyExtractor={(item) => item[0]}
+        data={userList}
+        keyExtractor={(item) => item.phoneNumber}
         renderItem={({ item }) => (
-          <Text style={styles.userText}>
-            Phone Number: {item[0]} | Password: {item[1]}
-          </Text>
+          <View style={styles.userContainer}>
+            <Text style={styles.userText}>
+              Phone Number: {item.phoneNumber} | Password: {item.password}
+            </Text>
+            <Button
+              title="Delete"
+              onPress={() => handleDelete(item.phoneNumber)}
+              color="red"
+            />
+          </View>
         )}
       />
     </View>
@@ -35,9 +41,10 @@ const AdminScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  adminContainer: { flex: 1, marginLeft: 20, marginTop: 10 },
-  adminTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  userText: { fontSize: 14, marginBottom: 10 },
+  adminContainer: { flex: 1, marginLeft: 0 },
+  adminTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, marginLeft: 10, marginTop: '10' },
+  userContainer: { marginBottom: 20 },
+  userText: { fontSize: 14, marginLeft: 10, marginBottom: 2 },
 });
 
 export default AdminScreen;

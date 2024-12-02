@@ -1,71 +1,52 @@
 import React, { useState } from 'react';
-import {
-  Text,
-  ImageBackground,
-  TextInput,
-  Button,
-  Alert,
-  GestureResponderEvent,
-  StyleSheet,
-  View,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, ImageBackground, TextInput, Button, Alert, StyleSheet, View, } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../redux/actions';
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const userList = useSelector((state) => state.user.userList);
 
-  async function RegisterBtnPress(event) {
+  const RegisterBtnPress = () => {
     if (phoneNumber.trim() && password.trim()) {
-      try {
-        const existingUsers = await AsyncStorage.getItem('users');
-        const users = existingUsers ? JSON.parse(existingUsers) : {};
+      const userExists = userList.some((user) => user.phoneNumber === phoneNumber);
 
-        if (phoneNumber === '888' || phoneNumber === '666') {
-          Alert.alert('Register Failed', 'This phone number cannot be registered.');
-        } else if (users[phoneNumber]) {
-          Alert.alert('Register Failed', 'Phone number already registered.');
-        } else {
-          users[phoneNumber] = password;
-          await AsyncStorage.setItem('users', JSON.stringify(users));
-          Alert.alert('Register Success', 'You can login to ABC Master Card App now.');
-          setPhoneNumber('');
-          setPassword('');
-        }
-      } catch (error) {
-        console.error(error);
-        Alert.alert('Register Failed', 'Please try again.');
+      if (phoneNumber === '888' || phoneNumber === '666') {
+        Alert.alert('Register Failed', 'This phone number cannot be registered.');
+      } else if (userExists) {
+        Alert.alert('Register Failed', 'Phone number already registered.');
+      } else {
+        dispatch(addUser(phoneNumber, password));
+        Alert.alert('Register Success', 'You can login to ABC Master Card App now.');
+        setPhoneNumber('');
+        setPassword('');
       }
     } else {
       Alert.alert('Register Failed', 'Please enter your phone number and password.');
     }
-  }
+  };
 
-  async function LoginBtnPress(event) {
+  const LoginBtnPress = () => {
     if (phoneNumber.trim() && password.trim()) {
-      try {
-        const existingUsers = await AsyncStorage.getItem('users');
-        const users = existingUsers ? JSON.parse(existingUsers) : {};
-
-        if (phoneNumber === '888' && password === 'admin') {
-          setPhoneNumber('');
-          setPassword('');
-          navigation.replace('Admin');
-        } else if (phoneNumber === '666' && password === 'data') {
-          navigation.replace('Data');
-        } else if (users[phoneNumber] === password) {
-          navigation.replace('Main', { phoneNumber });
-        } else {
-          Alert.alert('Login Failed', 'Invalid phone number or password.');
-        }
-      } catch (error) {
-        console.error(error);
-        Alert.alert('Login Failed', 'Please try again.');
+      if (phoneNumber === '888' && password === 'admin') {
+        navigation.replace('Admin');
+      } else if (phoneNumber === '666' && password === 'data') {
+        navigation.replace('Data');
+      } else if (
+        userList.some(
+          (user) => user.phoneNumber === phoneNumber && user.password === password
+        )
+      ) {
+        navigation.replace('Main', { phoneNumber });
+      } else {
+        Alert.alert('Login Failed', 'Invalid phone number or password.');
       }
     } else {
       Alert.alert('Login Failed', 'Please enter your phone number and password.');
     }
-  }
+  };
 
   return (
     <ImageBackground
