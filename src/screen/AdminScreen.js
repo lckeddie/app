@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteUser } from '../redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const AdminScreen = () => {
   const userList = useSelector((state) => state.user.userList);
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const AdminScreen = () => {
 
 const styles = StyleSheet.create({
   adminContainer: { flex: 1, marginLeft: 0 },
-  adminTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, marginLeft: 10, marginTop: '10' },
+  adminTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, marginLeft: 10, marginTop: '10' },
   userContainer: { marginBottom: 20 },
   userText: { fontSize: 14, marginLeft: 10, marginBottom: 2 },
 });
