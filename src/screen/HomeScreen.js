@@ -5,19 +5,29 @@ const HomeScreen = ({ phoneNumber }) => {
   const rotateValue = useRef(new Animated.Value(0)).current;
 
   const spinButton = () => {
-    Animated.timing(rotateValue, {
-      toValue: 1,
-      duration: 3000,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start(() => {
+    rotateValue.setValue(0);
+  
+    Animated.sequence([
+      Animated.timing(rotateValue, {
+        toValue: 0.6,
+        duration: 5000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotateValue, {
+        toValue: 1,
+        duration: 10000,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
       rotateValue.setValue(0);
     });
   };
 
   const rotateInterpolate = rotateValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
+    outputRange: ['0deg', '3600deg'],
   });
 
   const animatedStyle = {
