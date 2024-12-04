@@ -9,14 +9,14 @@ const HomeScreen = ({ phoneNumber }) => {
   
     Animated.sequence([
       Animated.timing(rotateValue, {
-        toValue: 0.6,
+        toValue: 0.7,
         duration: 5000,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
       Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 10000,
+        duration: 7500,
         easing: Easing.out(Easing.quad),
         useNativeDriver: true,
       }),
