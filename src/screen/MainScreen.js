@@ -19,18 +19,20 @@ const MainScreen = ({ route }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home Page"
+        name="Home"
         children={() => <HomeScreen phoneNumber={phoneNumber} />}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="About Page"
+        name="Wallet"
         children={() => <AboutScreen phoneNumber={phoneNumber} />}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="info" color={color} size={size} />
           ),
@@ -40,6 +42,7 @@ const MainScreen = ({ route }) => {
         name="Profile Page"
         children={() => <ProfileScreen user={user} />}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="person" color={color} size={size} />
           ),
@@ -51,6 +54,7 @@ const MainScreen = ({ route }) => {
           <SettingScreen phoneNumber={phoneNumber} navigation={navigation} />
         )}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="settings" color={color} size={size} />
           ),

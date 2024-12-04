@@ -9,6 +9,7 @@ import AdminScreen from './src/screen/AdminScreen';
 import DataScreen from './src/screen/DataScreen';
 import { TouchableOpacity, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import ForgotPasswordScreen from './src/screen/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,7 @@ export default function App() {
                 gestureEnabled: false,
               })}
             />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

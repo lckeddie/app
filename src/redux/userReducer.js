@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ADD_USER, DELETE_USER } from './type';
+import { ADD_USER, DELETE_USER, UPDATE_PASSWORD } from './type';
 
 const initialState = {
   userList: [],
@@ -33,6 +33,15 @@ const userReducer = (state = initialState, action) => {
     case DELETE_USER: {
       const updatedList = state.userList.filter(
         (user) => user.phoneNumber !== action.payload
+      );
+      saveToStorage(updatedList);
+      return { ...state, userList: updatedList };
+    }
+    case UPDATE_PASSWORD: {
+      const updatedList = state.userList.map((user) =>
+        user.phoneNumber === action.payload.phoneNumber
+          ? { ...user, password: action.payload.newPassword }
+          : user
       );
       saveToStorage(updatedList);
       return { ...state, userList: updatedList };

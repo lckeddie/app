@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Text, ImageBackground, TextInput, Button, Alert, StyleSheet, View, } from 'react-native';
+import { Text, ImageBackground, TextInput, Button, Alert, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../redux/actions';
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userList);
 
@@ -48,6 +49,10 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
+  const ForgotPasswordPress = () => {
+    navigation.navigate('ForgotPassword');
+  };
+
   return (
     <ImageBackground
       source={require('../assets/wallpaper.jpg')}
@@ -83,6 +88,9 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Button onPress={RegisterBtnPress} title="Register" />
       </View>
+      <TouchableOpacity onPress={ForgotPasswordPress}>
+        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 };
@@ -99,7 +107,8 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     marginBottom: 20,
   },
-  buttonContainer: { marginTop: 20, backgroundColor: 'lightblue', borderRadius: 25},
+  buttonContainer: { marginTop: 20, backgroundColor: 'lightblue', borderRadius: 25 },
+  forgotPassword: { marginTop: 20, fontSize: 16, color: 'lightblue', textAlign: 'center' },
 });
 
 export default LoginScreen;
