@@ -5,21 +5,24 @@ import ReloadIcon from '../assets/reload.png';
 import BillIcon from '../assets/bill.png';
 import SecurityIcon from '../assets/security.jpg';
 import LockIcon from '../assets/lock.png';
-
+import { Badge } from '@rneui/themed';
 
 const HomeScreen = () => {
   const [cards, setCards] = useState([
-    { id: 1, name: 'Visa Card', balance: '0.00 USD ', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg' },
-    { id: 2, name: 'Master Card', balance: '7.00 USD ', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg' },
+    { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
+    { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
   ]);
 
-  const [notificationIndex, setNotificationIndex] = useState(0);
-  const notifications = [
+  const [notifications, setNotifications] = useState([
+    "Welcome",
     "You have new notifications",
     "Your card balance is low",
     "A new transaction was made",
     "Your security code has been updated",
-  ];
+    "GoodBye",
+    "Have a nice day",
+  ]);
+  const [notificationCount, setNotificationCount] = useState(notifications.length);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -27,20 +30,32 @@ const HomeScreen = () => {
     const interval = setInterval(() => {
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: 500,
+        duration: 1000,
         useNativeDriver: true,
       }).start(() => {
-        setNotificationIndex((prevIndex) => (prevIndex + 1) % notifications.length);
+        setNotifications((prevNotifications) => {
+          const updatedNotifications = [...prevNotifications.slice(1), prevNotifications[0]];
+          setNotificationCount(updatedNotifications.length);
+          return updatedNotifications;
+        });
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 500,
+          duration: 1000,
           useNativeDriver: true,
         }).start();
       });
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [fadeAnim]);
+
+  const toggleBalanceVisibility = (id) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id ? { ...card, showBalance: !card.showBalance } : card
+      )
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -59,8 +74,22 @@ const HomeScreen = () => {
         {cards.map((card) => (
           <View key={card.id} style={styles.cardContainer}>
             <Text style={styles.cardInfoValueH}>{card.name}</Text>
-            <Text style={styles.cardInfoValue}>{card.balance}</Text>
-            <Text style={styles.cardInfoValueR}>{card.balancer}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={styles.cardInfoValue}>
+                {card.showBalance ? card.balance : '****'}
+              </Text>
+              <TouchableOpacity onPress={() => toggleBalanceVisibility(card.id)}>
+                <Icon
+                  name={card.showBalance ? 'visibility' : 'visibility-off'}
+                  size={20}
+                  color="black"
+                  style={{ marginLeft: 10 }}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.cardInfoValueR}>
+              {card.showBalance ? card.balancer : '****'}
+            </Text>
             <Text style={styles.cardNumber}>{card.number}</Text>
             <View style={styles.cardInfoContainer}>
               <View style={styles.cardInfoItem}>
@@ -73,9 +102,18 @@ const HomeScreen = () => {
       </ScrollView>
 
       <View style={styles.notificationContainer}>
-        <Icon name="notifications-active" size={24} color="black" style={styles.notificationIcon} />
+        <View style={styles.iconBadgeContainer}>
+          {notificationCount > 0 && (
+            <Badge
+              value={notificationCount}
+              status="error"
+              containerStyle={styles.badgeContainer}
+            />
+          )}
+          <Icon name="notifications-active" size={24} color="black" style={styles.notificationIcon} />
+        </View>
         <Animated.Text style={[styles.notificationText, { opacity: fadeAnim }]}>
-          {notifications[notificationIndex]}
+          {notifications[0]}
         </Animated.Text>
       </View>
 
@@ -172,6 +210,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   notificationText: {
+    marginLeft: 10,
     fontSize: 16,
     color: '#333',
   },
@@ -249,6 +288,14 @@ const styles = StyleSheet.create({
     margin: 'auto',
     width: 40,
     height: 40,
+  },
+  iconBadgeContainer: {
+    position: 'relative',
+  },
+  badgeContainer: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
   },
 });
 

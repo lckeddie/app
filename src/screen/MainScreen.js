@@ -39,7 +39,7 @@ const MainScreen = ({ route }) => {
         }}
       />
       <Tab.Screen
-        name="Profile Page"
+        name="Tutorial"
         children={() => <ProfileScreen user={user} />}
         options={{
           headerShown: false,
@@ -49,7 +49,7 @@ const MainScreen = ({ route }) => {
         }}
       />
       <Tab.Screen
-        name="Settings Page"
+        name="My"
         children={({ navigation }) => (
           <SettingScreen phoneNumber={phoneNumber} navigation={navigation} />
         )}

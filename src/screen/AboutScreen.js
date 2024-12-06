@@ -1,33 +1,63 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, Image } from 'react-native';
+import CoinIcon from '../assets/coin.png';
+
+const generateRandomDetails = (count) => {
+  const generateRandomName = () => {
+    const randomname = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    return Array.from({ length: 5 }, () => randomname[Math.floor(Math.random() * randomname.length)]).join('');
+  };
+
+  const generateRandomEmail = () => {
+    const randomemail = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const emailName = Array.from({ length: 5 }, () => randomemail[Math.floor(Math.random() * randomemail.length)]).join('');
+    return `${emailName}@gmail.com`;
+  };
+
+  return Array.from({ length: count }, (_, id) => ({
+    id: `${id + 1}`,
+    name: generateRandomName(),
+    email: generateRandomEmail(),
+  }));
+};
 
 const AboutScreen = () => {
-  // Sample data for FlatList
-  const details = [
-    { id: '1', text: 'KD \n cvyuhfcfd56rtdtgcghch66767cgh', amount: '4563.93 KDs' },
-  ];
+  const details = generateRandomDetails(100);
+
+  const isEmailContainsNumber = (email) => /\d/.test(email);
+
+  const renderTextWithColoredNumbers = (text, isRed) => {
+    return (
+      <Text style={[styles.dtlText, isRed && styles.numberText]}>
+        {text}
+      </Text>
+    );
+  };
 
   return (
     <View style={styles.screenContainer}>
-      <TouchableOpacity 
-        style={styles.connect} 
-        onPress={() => Alert.alert('Connect History', 'Viewing connection history!')}>
+      <TouchableOpacity
+        style={styles.connect}
+        onPress={() => Alert.alert('Connect History', 'connecting history!')}>
         <Text style={styles.connectText}>Connect History</Text>
       </TouchableOpacity>
 
       <View style={styles.blcContainer}>
+        <TouchableOpacity onPress={() => Alert.alert('Binding', 'Binding Success')}>
+          <Text style={styles.biding}>Binding</Text>
+        </TouchableOpacity>
         <Text style={styles.blcText}>My Balance</Text>
         <Text style={styles.balanceAmount}>3152.43</Text>
 
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity 
-            style={styles.button} 
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => Alert.alert('Reload', 'Reloading balance')}>
             <Text style={styles.buttonText}>Reload</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={styles.button} 
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => Alert.alert('Bill', 'Viewing bill')}>
             <Text style={styles.buttonText}>Bill</Text>
           </TouchableOpacity>
@@ -38,13 +68,22 @@ const AboutScreen = () => {
         <FlatList
           data={details}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity 
-              style={styles.dtlItem} 
-              onPress={() => Alert.alert('Item Clicked', `You clicked ${item.text}`)}>
-              <Text style={styles.dtlText}>{item.text}</Text>
-              <Text style={styles.dtlText}>{item.amount}</Text>
-            </TouchableOpacity>
+          renderItem={({ item }) => {
+            const isRed = isEmailContainsNumber(item.email);
+            return (
+              <TouchableOpacity
+                style={styles.dtlItem}
+                onPress={() => Alert.alert('User Details', `You clicked ${item.name}`)}>
+                <Image source={CoinIcon} style={styles.dtlIcon} />
+                {renderTextWithColoredNumbers(item.name, isRed)}
+                {renderTextWithColoredNumbers(item.email, isRed)}
+              </TouchableOpacity>
+            );
+          }}
+          ListFooterComponent={() => (
+            <View style={styles.footer}>
+              <Text style={styles.noMoreText}>No More~</Text>
+            </View>
           )}
         />
       </View>
@@ -85,16 +124,23 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   blcText: {
+    marginRight: 150,
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
     color: '#333',
   },
   balanceAmount: {
+    marginRight: 150,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#007bff',
     marginBottom: 20, 
+  },
+  biding: {
+    marginTop: -40,
+    marginLeft: 250,
+    fontSize: 16,
+    color: '#007bff',
   },
   buttonsContainer: {
     flexDirection: 'row', 
@@ -117,27 +163,55 @@ const styles = StyleSheet.create({
   },
   dtlContainer: {
     flex: 1,
-    width: '100%',
-    marginTop: 20,
+    width: '120%',
+    marginBottom: -40,
+    marginTop: -40,
+    marginLeft: -37,
     backgroundColor: 'white',
     padding: 20,
-    alignItems: 'center',
-    borderRadius: 20, 
   },
   dtlItem: {
-    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 15,
     backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    width: 300,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 5,
+    width: '90%',
+    marginLeft: 20,
+  },
+  dtlIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
   dtlText: {
-    fontSize: 16,
+    flex: 1,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#333',
-  }
+    marginHorizontal: 10,
+  },
+  amountText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#666',
+    textAlign: 'right',
+  },
+  numberText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  footer: {
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  noMoreText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#888',
+  },
 });
 
 export default AboutScreen;

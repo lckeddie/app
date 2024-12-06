@@ -10,6 +10,10 @@ import DataScreen from './src/screen/DataScreen';
 import { TouchableOpacity, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ForgotPasswordScreen from './src/screen/ForgotPasswordScreen';
+import Tutorial1 from './src/screen/Tutorial1';
+import Tutorial2 from './src/screen/Tutorial2';
+import LogoutScreen from './src/screen/LogoutScreen';
+import CardinfoScreen from './src/screen/CardinfoScreen';
 
 const Stack = createStackNavigator();
 
@@ -62,6 +66,34 @@ export default function App() {
               })}
             />
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            <Stack.Screen
+              name="Tutorial 1"
+              component={Tutorial1}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Tutorial 2"
+              component={Tutorial2}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Setting"
+              component={LogoutScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Cardinfo"
+              component={CardinfoScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
