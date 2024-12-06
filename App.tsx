@@ -14,6 +14,13 @@ import Tutorial1 from './src/screen/Tutorial1';
 import Tutorial2 from './src/screen/Tutorial2';
 import LogoutScreen from './src/screen/LogoutScreen';
 import CardinfoScreen from './src/screen/CardinfoScreen';
+import MycardScreen from './src/screen/MycardScreen';
+import GetcardScreen from './src/screen/GetcardScreen';
+import EmailScreen from './src/screen/EmailScreen';
+import PhonenumberScreen from './src/screen/PhonenumberScreen';
+import RNAScreen from './src/screen/RNAScreen';
+import SecurityScreen from './src/screen/SecurityScreen';
+import CustomerserviceScreen from './src/screen/CustomerserviceScreen';
 
 const Stack = createStackNavigator();
 
@@ -90,6 +97,55 @@ export default function App() {
             <Stack.Screen
               name="Cardinfo"
               component={CardinfoScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="My Card"
+              component={MycardScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Get Card"
+              component={GetcardScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Email"
+              component={EmailScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Phone Number"
+              component={PhonenumberScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Real Name Authenticatin"
+              component={RNAScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Security"
+              component={SecurityScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Customer Service"
+              component={CustomerserviceScreen}
               // options={{
               //   headerShown: false,
               // }}

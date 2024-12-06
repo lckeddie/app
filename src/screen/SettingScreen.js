@@ -31,6 +31,69 @@ const SettingScreen = () => {
     }
   };
 
+  const gotomycard = async () => {
+    try {
+      navigation.navigate('My Card');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotogetcard = async () => {
+    try {
+      navigation.navigate('Get Card');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotoemail = async () => {
+    try {
+      navigation.navigate('Email');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotophonenumber = async () => {
+    try {
+      navigation.navigate('Phone Number');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotoRNA = async () => {
+    try {
+      navigation.navigate('Real Name Authenticatin');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotosecurity = async () => {
+    try {
+      navigation.navigate('Security');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+  const gotocustomerservice = async () => {
+    try {
+      navigation.navigate('Customer Service');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
   return (
     <View style={styles.screenContainer}>
       <TouchableOpacity onPress={gotoLogout}>
@@ -73,45 +136,45 @@ const SettingScreen = () => {
       <View style={styles.menuContainer}>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotomycard}>
           <Text style={styles.menuButtonText}>My Card</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotogetcard}>
           <Text style={styles.menuButtonText}>Get Card</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotoemail}>
           <Text style={styles.menuButtonText}>Email</Text>
           <Text style={{marginLeft:'50%', color:'#848482'}}>x*@gmail.com</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotophonenumber}>
           <Text style={styles.menuButtonText}>Phone Number</Text>
           <Text style={{marginLeft:'35%', color:'#848482'}}>131****5611</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotoRNA}>
           <Text style={styles.menuButtonText}>Real Name Authentication</Text>
           <Text style={{ marginLeft: 'auto', color: 'red', fontSize: 12}}>Already real-name</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotosecurity}>
           <Text style={styles.menuButtonText}>Security</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
-          onPress={() => alert('')}>
+          onPress={gotocustomerservice}>
           <Text style={styles.menuButtonText}>Customer Service</Text>
           <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
         </TouchableOpacity>
