@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert , SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
@@ -23,14 +23,14 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <TouchableOpacity style={styles.tutorialButton} onPress={gotoTut1}>
         <Text style={styles.buttonText}>Tutorial 1</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.tutorialButton} onPress={gotoTut2}>
         <Text style={styles.buttonText}>Tutorial 2</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

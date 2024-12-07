@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated , SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReloadIcon from '../assets/reload.png';
 import BillIcon from '../assets/bill.png';
@@ -95,7 +95,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>ABC Master Card</Text>
         <TouchableOpacity style={styles.registerButton} onPress={() => alert('Register Card clicked!')}>
@@ -176,7 +176,7 @@ const HomeScreen = () => {
       <View style={styles.adContainer}>
         <Text style={styles.adText}>Ad Placeholder</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image , SafeAreaView } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import PersonIcon from '../assets/person.jpeg';
 import settingIcon from '../assets/setting.png';
@@ -99,7 +99,7 @@ const SettingScreen = () => {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <TouchableOpacity onPress={gotoLogout}>
         <Image source={settingIcon} style={styles.settingIcon} />
       </TouchableOpacity>
@@ -187,19 +187,20 @@ const SettingScreen = () => {
         </TouchableOpacity>
       </View>
       <Text style={styles.versionText}>Current Version: 999.0.0(11)</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    padding: 20
+    padding: 20,
+    justifyContent: 'center',
   },
   settingIcon: {
     position: 'absolute',
     top: 0,
-    right: 0,
+    right: '5%',
     width: 20,
     height: 20,
   },
@@ -207,6 +208,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 15,
+    left: '7%',
   },
   personIcon: {
     width: 70,

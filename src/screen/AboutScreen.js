@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList, Image , SafeAreaView} from 'react-native';
 import CoinIcon from '../assets/coin.png';
 
 const generateRandomDetails = (count) => {
@@ -35,7 +35,7 @@ const AboutScreen = () => {
   };
 
   return (
-    <View style={styles.screenContainer}>
+    <SafeAreaView style={styles.screenContainer}>
       <TouchableOpacity
         style={styles.connect}
         onPress={() => Alert.alert('Connect History', 'connecting history!')}>
@@ -87,7 +87,7 @@ const AboutScreen = () => {
           )}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   connect: {
     position: 'absolute',
-    top: 20,
-    right: 20,
+    top: '6%',
+    right: '3%',
     backgroundColor: '#007bff',
     paddingVertical: 8,
     paddingHorizontal: 15,
