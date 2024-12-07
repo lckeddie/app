@@ -22,7 +22,7 @@ const generateRandomDetails = (count) => {
 };
 
 const AboutScreen = () => {
-  const details = generateRandomDetails(100);
+  const details = generateRandomDetails(10);
 
   const isEmailContainsNumber = (email) => /\d/.test(email);
 

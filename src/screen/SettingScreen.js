@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image ,  } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import PersonIcon from '../assets/person.jpeg';
 import settingIcon from '../assets/setting.png';
 import { useNavigation } from '@react-navigation/native';
@@ -9,9 +10,12 @@ import SecurityIcon from '../assets/security.jpg';
 import LockIcon from '../assets/lock.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-
 const SettingScreen = () => {
   const navigation = useNavigation();
+
+  const copyToClipboard = (text) => {
+    Clipboard.setString(text);
+  };
 
   const gotoLogout = async () => {
     try {
@@ -106,6 +110,9 @@ const SettingScreen = () => {
       <View style={styles.rowContainer}>
         <Text style={styles.memberText}>MEMBER</Text>
         <Text style={styles.UIDText}>UID: 24070417005</Text>
+        <TouchableOpacity onPress={() => copyToClipboard('24070417005')}>
+          <MaterialIcons name="content-copy" size={20} color="#333" style={styles.copyIcon} />
+        </TouchableOpacity>
       </View>
       <View style={styles.adContainer}>
         <Text style={styles.adText}>
@@ -116,19 +123,19 @@ const SettingScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.tabButtonContainer}>
-        <TouchableOpacity onPress={() => alert('Reload Card clicked!')}>
+        <TouchableOpacity onPress={() => alert('All clicked!')}>
           <Image source={ReloadIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>All</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Bill Details clicked!')}>
+        <TouchableOpacity onPress={() => alert('Wait clicked!')}>
           <Image source={BillIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Wait</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Security Code clicked!')}>
+        <TouchableOpacity onPress={() => alert('Success clicked!')}>
           <Image source={SecurityIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Success</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Lock Screen clicked!')}>
+        <TouchableOpacity onPress={() => alert('Fail clicked!')}>
           <Image source={LockIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Fail</Text>
         </TouchableOpacity>
@@ -138,45 +145,45 @@ const SettingScreen = () => {
           style={styles.menuButton}
           onPress={gotomycard}>
           <Text style={styles.menuButtonText}>My Card</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotogetcard}>
           <Text style={styles.menuButtonText}>Get Card</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotoemail}>
           <Text style={styles.menuButtonText}>Email</Text>
-          <Text style={{marginLeft:'50%', color:'#848482'}}>x*@gmail.com</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <Text style={{ marginLeft: '50%', color: '#848482' }}>x*@gmail.com</Text>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotophonenumber}>
           <Text style={styles.menuButtonText}>Phone Number</Text>
-          <Text style={{marginLeft:'35%', color:'#848482'}}>131****5611</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <Text style={{ marginLeft: '35%', color: '#848482' }}>131****5611</Text>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotoRNA}>
           <Text style={styles.menuButtonText}>Real Name Authentication</Text>
-          <Text style={{ marginLeft: 'auto', color: 'red', fontSize: 12}}>Already real-name</Text>
+          <Text style={{ marginLeft: 'auto', color: 'red', fontSize: 12 }}>Already real-name</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotosecurity}>
           <Text style={styles.menuButtonText}>Security</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={gotocustomerservice}>
           <Text style={styles.menuButtonText}>Customer Service</Text>
-          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'}/>
+          <MaterialIcons name="arrow-forward-ios" size={20} marginLeft={'auto'} color={'#C0C0C0'} />
         </TouchableOpacity>
       </View>
       <Text style={styles.versionText}>Current Version: 999.0.0(11)</Text>
@@ -195,7 +202,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: 20,
     height: 20,
-  },  
+  },
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -227,6 +234,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#888',
+  },
+  copyIcon: {
+    marginTop: -50,
+    marginLeft: 10,
   },
   adContainer: {
     margin: 'auto',

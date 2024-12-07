@@ -21,6 +21,9 @@ import PhonenumberScreen from './src/screen/PhonenumberScreen';
 import RNAScreen from './src/screen/RNAScreen';
 import SecurityScreen from './src/screen/SecurityScreen';
 import CustomerserviceScreen from './src/screen/CustomerserviceScreen';
+import ReloadScreen from './src/screen/ReloadScreen';
+import BillScreen from './src/screen/BillScreen';
+import lockScreen from './src/screen/LockScreen';
 
 const Stack = createStackNavigator();
 
@@ -146,6 +149,34 @@ export default function App() {
             <Stack.Screen
               name="Customer Service"
               component={CustomerserviceScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Reload Card"
+              component={ReloadScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Bill Details"
+              component={BillScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Security Code"
+              component={SecurityScreen}
+              // options={{
+              //   headerShown: false,
+              // }}
+            />
+            <Stack.Screen
+              name="Lock Screen"
+              component={lockScreen}
               // options={{
               //   headerShown: false,
               // }}

@@ -6,8 +6,45 @@ import BillIcon from '../assets/bill.png';
 import SecurityIcon from '../assets/security.jpg';
 import LockIcon from '../assets/lock.png';
 import { Badge } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+
+  const gotoReload = async () => {
+    try {
+      navigation.navigate('Reload Card');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+  const gotoBill = async () => {
+    try {
+      navigation.navigate('Bill Details');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+  const gotoSecurityCode = async () => {
+    try {
+      navigation.navigate('Security Code');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+  const gotoLockScreen = async () => {
+    try {
+      navigation.navigate('Lock Screen');
+    } catch (error) {
+      console.error(error);
+      alert('Failed', 'Something went wrong. Please try again.');
+    }
+  };
+
+
   const [cards, setCards] = useState([
     { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
     { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
@@ -118,19 +155,19 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.tabButtonContainer}>
-        <TouchableOpacity onPress={() => alert('Reload Card clicked!')}>
+        <TouchableOpacity onPress={gotoReload}>
           <Image source={ReloadIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Reload Card</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Bill Details clicked!')}>
+        <TouchableOpacity onPress={gotoBill}>
           <Image source={BillIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Bill Details</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Security Code clicked!')}>
+        <TouchableOpacity onPress={gotoSecurityCode}>
           <Image source={SecurityIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Security Code</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('Lock Screen clicked!')}>
+        <TouchableOpacity onPress={gotoLockScreen}>
           <Image source={LockIcon} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Lock Screen</Text>
         </TouchableOpacity>
