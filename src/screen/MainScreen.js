@@ -34,7 +34,7 @@ const MainScreen = ({ route }) => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="info" color={color} size={size} />
+            <MaterialIcons name="wallet" color={color} size={size} />
           ),
         }}
       />
@@ -44,7 +44,7 @@ const MainScreen = ({ route }) => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="person" color={color} size={size} />
+            <MaterialIcons name="auto-stories" color={color} size={size} />
           ),
         }}
       />
@@ -56,7 +56,7 @@ const MainScreen = ({ route }) => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="settings" color={color} size={size} />
+            <MaterialIcons name="manage-accounts" color={color} size={size} />
           ),
         }}
       />
