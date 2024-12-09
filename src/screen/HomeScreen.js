@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated , SafeAreaView, ImageBackground} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReloadIcon from '../assets/reload.png';
 import BillIcon from '../assets/bill.png';
 import SecurityIcon from '../assets/security.png';
 import LockIcon from '../assets/lock.png';
-import Chip from '../assets/chip.png'
+import Chip from '../assets/chip.png';
 import CardBackground from '../assets/cardbackground.jpg';
 
 import { Badge } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -47,11 +49,11 @@ const HomeScreen = () => {
     }
   };
 
-
   const [cards, setCards] = useState([
     { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: Chip, showBalance: true },
     { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
-    ]);
+    { id: 3, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
+  ]);
 
   const [notifications, setNotifications] = useState([
     "Welcome",
@@ -97,6 +99,12 @@ const HomeScreen = () => {
     );
   };
 
+  const handleScrollEnd = (event) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const visibleCardIndex = Math.round(contentOffsetX / (width - 60));
+    console.log(`Currently visible card index: ${visibleCardIndex}`);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -110,6 +118,8 @@ const HomeScreen = () => {
         horizontal
         contentContainerStyle={styles.carouselContainer}
         showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        onMomentumScrollEnd={handleScrollEnd}
       >
         {cards.map((card) => (
           <ImageBackground
@@ -218,12 +228,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cardContainer: {
-    marginHorizontal: 30,
-    width: 300,
+    marginHorizontal: 'auto',
+    width: 350,
     height: 180,
     backgroundColor: 'lightblue',
     borderRadius: 20,
     padding: 10,
+    marginRight: 30,
+    marginLeft: 29,
     justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
