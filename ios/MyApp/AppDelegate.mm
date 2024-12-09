@@ -15,7 +15,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-    [RNNotifications startMonitorNotifications]; // -> Add this line
 
 {
   self.moduleName = @"MyApp";

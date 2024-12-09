@@ -1668,6 +1668,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNNotifee (9.1.3):
+    - React-Core
+    - RNNotifee/NotifeeCore (= 9.1.3)
+  - RNNotifee/NotifeeCore (9.1.3):
+    - React-Core
   - RNReanimated (3.16.2):
     - DoubleConversion
     - glog
@@ -1895,6 +1900,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -2045,6 +2051,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-clipboard/clipboard"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNNotifee:
+    :path: "../node_modules/@notifee/react-native"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -2126,6 +2134,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 2edc69cf6db9299363a11477668b7f452f2cb4a6
   RNCClipboard: 356f0acf1d62d41398269d5f47b1d950c2a593fe
   RNGestureHandler: e1dcb274c17ca0680a04d7ff357e35e37c384185
+  RNNotifee: 6635a40b3ccc1660f1025278145499882867d54a
   RNReanimated: 01d743d77838211eeec6bb9fbee99458b0bcf857
   RNScreens: 06e1f09654d2da4ff95dee6621b2b13b033e9c5a
   RNVectorIcons: a24016b773380b1aa37fca501ec6b94a951890a0

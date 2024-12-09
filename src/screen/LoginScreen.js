@@ -2,13 +2,53 @@ import React, { useState } from 'react';
 import { Text, ImageBackground, TextInput, Button, Alert, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../redux/actions';
+import notifee from '@notifee/react-native';
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userList);
+
+  const showNotification = async (title, body) => {
+    //await notifee.requestPermission();
+
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+    });
+
+    await notifee.displayNotification({
+      title,
+      body,
+      android: {
+        channelId,
+      },
+    });
+  };
+
+  const LoginBtnPress = async () => {
+    if (phoneNumber.trim() && password.trim()) {
+      if (phoneNumber === '888' && password === 'admin') {
+        await showNotification('Login Success', 'Welcome Admin!');
+        navigation.replace('Admin');
+      } else if (phoneNumber === '666' && password === 'data') {
+        await showNotification('Login Success', 'Welcome Data User!');
+        navigation.replace('Data')
+      } else if (
+        userList.some(
+          (user) => user.phoneNumber === phoneNumber && user.password === password
+        )
+      ) {
+        await showNotification('Login Success', 'Welcome to ABC Master Card!');
+        navigation.replace('Main', { phoneNumber });
+      } else {
+        Alert.alert('Login Failed', 'Invalid phone number or password.');
+      }
+    } else {
+      Alert.alert('Login Failed', 'Please enter your phone number and password.');
+    }
+  };
 
   const RegisterBtnPress = () => {
     if (phoneNumber.trim() && password.trim()) {
@@ -26,26 +66,6 @@ const LoginScreen = ({ navigation }) => {
       }
     } else {
       Alert.alert('Register Failed', 'Please enter your phone number and password.');
-    }
-  };
-
-  const LoginBtnPress = () => {
-    if (phoneNumber.trim() && password.trim()) {
-      if (phoneNumber === '888' && password === 'admin') {
-        navigation.replace('Admin');
-      } else if (phoneNumber === '666' && password === 'data') {
-        navigation.replace('Data');
-      } else if (
-        userList.some(
-          (user) => user.phoneNumber === phoneNumber && user.password === password
-        )
-      ) {
-        navigation.replace('Main', { phoneNumber });
-      } else {
-        Alert.alert('Login Failed', 'Invalid phone number or password.');
-      }
-    } else {
-      Alert.alert('Login Failed', 'Please enter your phone number and password.');
     }
   };
 
