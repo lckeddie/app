@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
   const userList = useSelector((state) => state.user.userList);
 
   const showNotification = async (title, body) => {
-    //await notifee.requestPermission();
+    await notifee.requestPermission();
 
     const channelId = await notifee.createChannel({
       id: 'default',

@@ -22,7 +22,7 @@ const generateRandomDetails = (count) => {
 };
 
 const AboutScreen = () => {
-  const details = generateRandomDetails(500);
+  const details = generateRandomDetails(10);
 
   const isEmailContainsNumber = (email) => /\d/.test(email);
 
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   dtlContainer: {
     flex: 1,
     width: '120%',
-    marginBottom: -40,
+    marginBottom: -20,
     marginTop: -40,
     marginLeft: -37,
     backgroundColor: 'white',
