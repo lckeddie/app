@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image , SafeAreaView } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import PersonIcon from '../assets/person.jpeg';
+import PersonIcon from '../assets/person.png';
 import settingIcon from '../assets/setting.png';
 import { useNavigation } from '@react-navigation/native';
-import ReloadIcon from '../assets/reload.png';
-import BillIcon from '../assets/bill.png';
-import SecurityIcon from '../assets/security.jpg';
-import LockIcon from '../assets/lock.png';
+import All from '../assets/all.png';
+import Wait from '../assets/wait.png';
+import Success from '../assets/success.png';
+import Fail from '../assets/fail.png';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SettingScreen = () => {
@@ -124,19 +124,19 @@ const SettingScreen = () => {
       </View>
       <View style={styles.tabButtonContainer}>
         <TouchableOpacity onPress={() => alert('All clicked!')}>
-          <Image source={ReloadIcon} style={styles.tabButtonIcon} />
+          <Image source={All} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>All</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => alert('Wait clicked!')}>
-          <Image source={BillIcon} style={styles.tabButtonIcon} />
+          <Image source={Wait} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Wait</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => alert('Success clicked!')}>
-          <Image source={SecurityIcon} style={styles.tabButtonIcon} />
+          <Image source={Success} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Success</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => alert('Fail clicked!')}>
-          <Image source={LockIcon} style={styles.tabButtonIcon} />
+          <Image source={Fail} style={styles.tabButtonIcon} />
           <Text style={styles.tabButtonText}>Fail</Text>
         </TouchableOpacity>
       </View>

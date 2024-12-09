@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated , SafeAreaView} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Animated , SafeAreaView, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ReloadIcon from '../assets/reload.png';
 import BillIcon from '../assets/bill.png';
-import SecurityIcon from '../assets/security.jpg';
+import SecurityIcon from '../assets/security.png';
 import LockIcon from '../assets/lock.png';
+import Chip from '../assets/chip.png'
+import CardBackground from '../assets/cardbackground.jpg';
+
 import { Badge } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 
@@ -46,9 +49,9 @@ const HomeScreen = () => {
 
 
   const [cards, setCards] = useState([
-    { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
-    { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: 'https://banner2.cleanpng.com/20180920/evr/kisspng-subscriber-identity-module-apple-sim-iphone-intern-cosas-para-photoscape-imgenes-para-photoscape-p-5ba3f97f83fde8.5864750415374728955407.jpg', showBalance: true },
-  ]);
+    { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: Chip, showBalance: true },
+    { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
+    ]);
 
   const [notifications, setNotifications] = useState([
     "Welcome",
@@ -109,7 +112,12 @@ const HomeScreen = () => {
         showsHorizontalScrollIndicator={false}
       >
         {cards.map((card) => (
-          <View key={card.id} style={styles.cardContainer}>
+          <ImageBackground
+            key={card.id}
+            source={CardBackground}
+            style={styles.cardContainer}
+            imageStyle={styles.cardImage}
+          >
             <Text style={styles.cardInfoValueH}>{card.name}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.cardInfoValue}>
@@ -132,9 +140,9 @@ const HomeScreen = () => {
               <View style={styles.cardInfoItem}>
                 <Text style={styles.cardInfoValue}>{card.expiration}</Text>
               </View>
-              <Image source={{ uri: card.logo }} style={styles.logo} />
+              <Image source={card.logo} style={styles.logo} />
             </View>
-          </View>
+          </ImageBackground>
         ))}
       </ScrollView>
 
@@ -225,6 +233,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#ddd',
   },
+  cardImage: {
+    borderRadius: 20,
+  },  
   notificationContainer: {
     marginTop: -10,
     flexDirection: 'row',
