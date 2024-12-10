@@ -26,7 +26,6 @@ import BillScreen from './src/screen/BillScreen';
 import lockScreen from './src/screen/LockScreen';
 
 const Stack = createStackNavigator();
-
 export default function App() {
   return (
     <SafeAreaProvider>
@@ -75,7 +74,10 @@ export default function App() {
                 gestureEnabled: false,
               })}
             />
-            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
+            />
             <Stack.Screen
               name="Tutorial 1"
               component={Tutorial1}

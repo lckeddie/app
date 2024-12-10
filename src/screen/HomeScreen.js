@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginRight: 30,
-    marginLeft: 29,
+    marginLeft: 30,
     justifyContent: 'space-between',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
