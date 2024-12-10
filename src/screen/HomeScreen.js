@@ -52,7 +52,7 @@ const HomeScreen = () => {
   const [cards, setCards] = useState([
     { id: 1, name: 'Visa Card', balance: '0.00 USD', balancer: '= 0.00 RMB', number: '4383 **** **** 1234', expiration: '09/2026', logo: Chip, showBalance: true },
     { id: 2, name: 'Master Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
-    { id: 3, name: 'Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '6264 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
+    { id: 3, name: 'Card', balance: '7.00 USD', balancer: '= 50.96 RMB', number: '1168 **** **** 5678', expiration: '10/26', logo: Chip, showBalance: true },
   ]);
 
   const [notifications, setNotifications] = useState([
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
   carouselContainer: {
-    marginVertical: 30,
+    marginVertical: 20,
     alignItems: 'center',
   },
   tabButtonIcon: {
